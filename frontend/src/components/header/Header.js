@@ -2,9 +2,9 @@
 
  const Header = () => {
     return (
-        <div>
+        <header>
             <h1>fasdf</h1>
-        </div>
+        </header>
     );
  };
  
