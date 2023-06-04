@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Main = () => {
+const Board = () => {
     return (
         <main>
-            <Link to ={"/board"}>Go to Board</Link>
+            <Link to= {"/"}> Go to Main</Link>
         </main>
     );
 };
 
-export default Main;
+export default Board;
