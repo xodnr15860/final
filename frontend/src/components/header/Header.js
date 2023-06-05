@@ -13,13 +13,13 @@ const Header = () => {
                     <li><Link to='/myPage'>마이페이지</Link></li>
                     <li><Link to='/customerService'>고객센터</Link></li>
                 </ul>
-            </nav>
             <hr/>
             <Link to='/'>
-                <div className='logo'>
-                  <img src='/logo.png' alt='로고' />
+                <div className='logo-container'>
+                  <img src='/아이유.webp' alt='로고' className='logo'/>
                 </div>
             </Link>
+            </nav>
 
         </header>
     );

@@ -26,7 +26,13 @@
     color: #958484;
   }
   
-  .logo {
+  .logo-container {
+    display: flex;
     align-items: center;
-    width: 20px;
+    justify-content: center;
+    height: 250px;
+  }
+
+  .logo {
+    width: 150px;
   }
