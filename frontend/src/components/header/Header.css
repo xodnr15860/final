@@ -1,29 +1,48 @@
-.header-container {
+  .header-container {
     background-color: #ffffff;
     padding: 10px;
   }
-  
-  .nav-bar {
+
+  .header-navbar {
     list-style-type: none;
-    display: flex; /* Flexbox를 사용하여 가로 정렬 */
-    justify-content: right; /* 가운데 정렬 */
+    display: flex;
+    justify-content: right;
     align-items: center;
     padding: 0;
     margin: 10px;
-    
+    cursor: pointer;
   }
   
-  .nav-bar li {
+  .header-navbar li {
     margin: 0 10px;
   }
   
-  .nav-bar li a {
+  .header-navbar li a {
     text-decoration: none;
     color: #333;
   }
   
-  .nav-bar li a:hover {
-    color: #958484;
+  .header-navbar li a:hover {
+    color: green;
+  }
+
+  .header-category {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding-left: 200px;
+    padding-right: 200px;
+    width: calc(100% - 10px);
+  }
+
+  .header-category li a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  .header-category li a:hover {
+    color: green;
   }
   
   .logo-container {
@@ -34,5 +53,7 @@
   }
 
   .logo {
-    width: 150px;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100px;
   }
