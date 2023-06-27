@@ -1,6 +1,6 @@
   .header-container {
     background-color: #ffffff;
-    padding: 10px;
+    padding-top: 10px;
   }
 
   .header-navbar {
@@ -49,11 +49,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 250px;
+    height: 100px;
   }
 
   .logo {
     margin-top: 0;
     margin-bottom: 0;
-    width: 100px;
+    width: 50px;
   }
