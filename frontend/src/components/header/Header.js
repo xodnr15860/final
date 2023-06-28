@@ -6,7 +6,7 @@ const Header = () => {
     return (
        <header>
         <nav className="bg-white border-black">
-            <div className="flex justify-end items-center mx-auto max-w-screen-xl p-4">
+            <div className="flex justify-end items-center mx-auto max-w-screen-xl p-4 mr-2">
                 <div className="flex items-center">
                     <Link to='/member/login' className="text-me hover:text-green-700 px-2">로그인</Link>
                     <Link to='/member/edit' className="text-me hover:text-green-700 px-2" >회원가입</Link>
@@ -23,15 +23,15 @@ const Header = () => {
                 </Link>
             </div>
         </div>
-        <nav className="bg-white border-2 border-gray-400">
+        <nav className="bg-white border border-gray-400">
             <div className="max-w-screen-xl px-4 py-4 mx-auto flex justify-center">
                 <div className="flex items-center">
-                    <ul className="flex justify-center font-medium mt-0 space-x-32 text-sm">
+                    <ul className="flex justify-center font-medium mt-0 space-x-32">
                         <li>
-                            <Link to='' className="text-black hover:text-green-700" aria-current="page">칼로리사전</Link>
+                            <Link to='/calorie' className="text-black hover:text-green-700" aria-current="page">칼로리사전</Link>
                         </li>
                         <li>
-                            <Link to='' className="text-black hover:text-green-700" aria-current="page">일반게시판</Link>
+                            <Link to='/board' className="text-black hover:text-green-700" aria-current="page">일반게시판</Link>
                         </li>
                         <li>
                             <Link to='' className="text-black hover:text-green-700" aria-current="page">모임게시판</Link>

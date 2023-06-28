@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import '../assets/css/Login.scss';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 const LoginPage = () => {
 
@@ -15,9 +16,19 @@ const LoginPage = () => {
         setPwd(e.target.value);
     }
     
-    const onClickButton = e => {
+    const onClickButton = async (e) => {
         e.preventDefault();
-    }
+        
+        try {
+            const response = await axios.post('http://localhost:8080/member/login', {
+              id: id,
+              pwd: pwd,
+            });
+            console.log(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        };
 
     /**
      * 1. fetch API
