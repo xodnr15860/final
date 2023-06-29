@@ -8,8 +8,9 @@ const Calorie = () => {
     const [resultDiv, setResultDiv] = useState(false);
     const [searchData, setSearchData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [message, setMessage] = useState('');
 
-    const perPage = 10;
+    const perPage = 20;
     const maxPages = 10;
 
     // 현재 페이지에 해당하는 데이터 계산
@@ -31,6 +32,7 @@ const Calorie = () => {
 
 
     // 페이지 변경 핸들러
+
     const onPageChange = (page) => {
         setCurrentPage(page);
     };
@@ -45,16 +47,16 @@ const Calorie = () => {
         if (!keyword) {
             alert("키워드를 입력하세요.");
             return;
-          }
+        }
 
         try{
             const res = await axios.get(`http://openapi.foodsafetykorea.go.kr/api/390bb6fff2df4f7888e8/I2790/json/1/999/DESC_KOR=${keyword}`, {
             
             });
             
-            console.log(res.data);
+            // console.log(res.data);
             
-            if (res.data && res.data.I2790.row) {
+            if (res.data.I2790 && res.data.I2790.row) {
                 const searchData = res.data.I2790.row.filter((item) => item.DESC_KOR.includes(keyword)).map((item) => ({
                     NUM: item.NUM, // 번호
                     NUTR_CONT1: item.NUTR_CONT1, // 열량
@@ -79,13 +81,12 @@ const Calorie = () => {
         } catch (error) {
             console.log(error);
         }
-        setResultDiv(true); // 검색 눌렀을 때 검색한 그 결과창 Div 나타나게 하는것
+    
     }
 
     return (
-        <div className="w-90">
-          <h1 className="ml-96 text-3xl font-bold text-green-700 mt-10">음식칼로리</h1>
-          <hr className="border-green-700 mb-8 ml-96 mr-96" />
+        <div className="w-auto">
+          <h1 className="ml-96 text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8 mr-96">음식칼로리</h1>
       
           <section className="ml-96 mr-96">
             <div>
@@ -95,40 +96,31 @@ const Calorie = () => {
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                   </div>
-                  <input type="text" value={keyword} onChange={onChangeKeyword} className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-green-700 focus:border-green-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-700 dark:focus:border-green-700" placeholder="검색어 입력" />
+                  <input type="text" value={keyword} onChange={onChangeKeyword} className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-green-700 focus:border-green-700 dark:border-black dark:placeholder-gray-400 dark:focus:ring-green-700 dark:focus:border-green-700" placeholder="검색어 입력" />
                   <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-lg text-sm px-4 py-2">검색</button>
                 </div>
               </form>
               {resultDiv && (
-                <div className="mt-4">
-                    <span className='text-xl font-semibold'>
-                        <span className='text-green-800'>{keyword}</span>
-                        (으)로
-                        <span className='text-green-800'> {searchData.length}</span>
-                        개 검색 되었습니다.
-                    </span>
-                        <table>
+                <div className="mt-10 mb-20">
+                         <table>
                             <thead>
-                                <tr>
-                                    <th className='w-40'>음식명</th>
-                                    <th className='w-40'>칼로리</th>
+                                <tr className='border-t border-green-700'>  
+                                    <th className='w-96'>음식명</th>
+                                    <th className='w-96'>칼로리</th>
+                                    <br/>
                                 </tr>
                             </thead>
                             {/* 현재 페이지에 해당하는 데이터 출력 */}
-                            <tbody className='mt-4 flex justify-center'>
+                            <tbody className='mt-6'>
                                 {currentItems.map((item) => (
-                                    <React.Fragment key={item.NUM}>
-                                    <tr className="rounded-lg">
-                                        <td className='w-40'>{item.DESC_KOR}</td>
-                                        <td>{item.NUTR_CONT1}</td>
+                                    <tr className='border-t border-b'>
+                                        <td className='w-custom'>{item.DESC_KOR}</td>
+                                        <td className='text-center'>{item.NUTR_CONT1} kcal</td>
                                     </tr>
-                                    <tr className="rounded-lg">     
-                                    </tr>
-                                    </React.Fragment>
                                 ))}
                             </tbody>
                         </table>
-                    <hr className="mb-10"/>
+                    
                 </div>
               )}
             </div>
@@ -163,7 +155,7 @@ const Calorie = () => {
             {/*페이지 갯수 */}
             {Array.from({ length: endPage - startPage + 1 }).map((_, index) => (
                 <li key={startPage + index}>
-                    <p className={`px-3 py-2 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 ${currentPage === startPage + index ? "z-10 border-blue-300 bg-green-100 hover:bg-green-700" : ""}`}
+                    <p className={`px-3 py-2 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 ${currentPage === startPage + index ? "z-10 border-blue-300 bg-green-700 hover:bg-green-700" : ""}`}
                         onClick={() => onPageChange(startPage + index)}>
                         {startPage + index}
                     </p>

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
        <header>
-        <nav className="bg-white border-black">
+        <nav className="bg-white">
             <div className="flex justify-end items-center mx-auto max-w-screen-xl p-4 mr-2">
                 <div className="flex items-center">
                     <Link to='/member/login' className="text-me hover:text-green-700 px-2">로그인</Link>
@@ -19,7 +19,7 @@ const Header = () => {
         <div>
             <div className='logo-container'>
                 <Link to='/'>
-                    <img src='/아이유.webp' alt='로고' className='logo'/>
+                    <img src='/logo3.png' alt='로고' className='logo'/>
                 </Link>
             </div>
         </div>
