@@ -19,12 +19,15 @@ const LoginPage = () => {
     const onClickButton = async (e) => {
         e.preventDefault();
         
+        
         try {
-            const response = await axios.post('http://localhost:8080/member/login', {
-              id: id,
-              pwd: pwd,
-            });
-            console.log(response.data);
+          const response = await axios.post('http://localhost:8080/member/login', {
+            id: id,
+            pwd: pwd,
+          });
+          console.log(response.data);
+          window.sessionStorage.setItem('nickname', '123124'); 
+          
           } catch (error) {
             console.error(error);
           }

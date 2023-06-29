@@ -8,7 +8,6 @@ const Calorie = () => {
     const [resultDiv, setResultDiv] = useState(false);
     const [searchData, setSearchData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [message, setMessage] = useState('');
 
     const perPage = 20;
     const maxPages = 10;
@@ -155,7 +154,7 @@ const Calorie = () => {
             {/*페이지 갯수 */}
             {Array.from({ length: endPage - startPage + 1 }).map((_, index) => (
                 <li key={startPage + index}>
-                    <p className={`px-3 py-2 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 ${currentPage === startPage + index ? "z-10 border-blue-300 bg-green-700 hover:bg-green-700" : ""}`}
+                    <p className={`px-3 py-2 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 ${currentPage === startPage + index ? "z-10 border-blue-300 bg-green-500 hover:bg-green-700" : ""}`}
                         onClick={() => onPageChange(startPage + index)}>
                         {startPage + index}
                     </p>
