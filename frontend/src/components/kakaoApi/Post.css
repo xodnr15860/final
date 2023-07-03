@@ -1,0 +1,19 @@
+* .postmodal {
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 80%;
+    width: auto;
+    max-height: 100%;
+    max-width: 25%;
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+input,
+p {
+    position: relative;
+    z-index: 1;
+}

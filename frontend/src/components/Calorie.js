@@ -115,7 +115,7 @@ const Calorie = () => {
                                 </tr>
                             </thead>
                             {/* 현재 페이지에 해당하는 데이터 출력 */}
-                            <tbody className='mt-4 flex justify-center'>
+                            <tbody className='mt-4 '>
                                 {currentItems.map((item) => (
                                     <React.Fragment key={item.NUM}>
                                     <tr className="rounded-lg">

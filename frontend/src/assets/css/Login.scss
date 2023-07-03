@@ -1,7 +1,7 @@
 .login-title {
     text-align: center;
     margin-bottom: 50px;
-    margin-top: 30px;
+    margin-top: 300px;
     font-size: xx-large;
     font-weight: 600;
 }
@@ -12,6 +12,13 @@
     align-items: center; 
 }
 
+.enroll-form{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+   
+}
+
 .login-input {
     margin-bottom: 10px;
     font-size: 1em;
@@ -20,23 +27,29 @@
     border: 1px solid lightgray;
     border-radius: 5px;
 }
-
+.overlap-button{
+    background: linear-gradient(to right, #8bc34a, #4caf50);
+}
 .login-btn {
-    background-color: green;
+    background: linear-gradient(to right, #8bc34a, #4caf50);
+    // background-color: green;
+    display: inline-block;
     color: white;
     font-weight: 700;
     font-size: large;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 5px;
+    margin-bottom: 15px;
     width: 380px;
-    padding: 17px 0px;
-    border: 1px solid green;
+    height: 50px;
+    padding: 13px 0px;
+    // border: 1px solid green;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .login-link {
     text-align: center;
+    margin-right: 10px;
     margin-bottom: 30px;
 }
 
@@ -55,8 +68,7 @@
     position: relative;
     text-align: center;
     padding: 15px;
-    width: 380px;
-    line-height: 16px;
     border-radius: 5px;
     margin-bottom: 300px;
+    cursor: pointer;
 }
