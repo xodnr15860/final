@@ -1,3 +1,4 @@
+
 .footer-container {
     overflow: auto; /* 스크롤이 생기면 내용을 스크롤하여 보여줌 */
     background-color: #f5f5f5;
@@ -7,21 +8,13 @@
     text-align: center;
   }
 
-  /* .footer {
-    position: sticky;
-    width: 100%;
-    bottom: 0;
-    background-color: #f5f5f5;
-    padding: 20px;
-  } */
-
   .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
   }
-  
+
   .footer-content p {
     margin: 0;
     font-size: 14px;
