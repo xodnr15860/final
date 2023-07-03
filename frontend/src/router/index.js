@@ -14,17 +14,19 @@ import ShopPage from "../pages/ShopPage";
 import FindIdPage from "../pages/FindIdPage"
 import FindPwdPage from "../pages/FindPwdPage"
 import EnrollPage from "../pages/EnrollPage";
+import CaloriePrescription from "../CaloriePrescription";
 // import Goods from "../components/Goods";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
-            <Route element = {< MainPage />}>
-                <Route element = {<Navigate />} />
+            <Route element = {<LayoutPage />}>
+                <Route element = {<Navigate />}  />
                 <Route element = {<Main />} index />
                 <Route element = {<Board />} path="/board" />
                 <Route element = {<Edit />} path="/member/edit" />
                 <Route element = {<Calorie />} path="/calorie" />
+                <Route element = {<CaloriePrescription />} path="/calorie/Prescription" />
                 <Route element = {<Cart />} path="/app/cart" />
                 {/* <Route element = {<Goods />} path="goods" /> */}
             </Route>

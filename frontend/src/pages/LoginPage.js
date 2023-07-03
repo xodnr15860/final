@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import {useContext, useState} from 'react';
 import '../assets/css/Login.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import "./LoginPage.css"
+import Context from '../components/context/sessionContext';
 
 const LoginPage = () => {
-
-    const [uId, setId] = useState('');
-    const [uPwd, setPwd] = useState('');
+    const { setLoggedUser, setLoggedIn} = useContext(Context);
+    const [id, setId] = useState('');
+    const [pwd, setPwd] = useState('');
 
     const InputChange = (e) => {
       const { name, value } = e.target;
@@ -23,32 +23,23 @@ const LoginPage = () => {
       }
     };
     
-
-    /** axios post 방식은  기본적으로 헤더가 application/json으로 들어감 */
-    const onClickLogin = () => {
-      axios
-        .post("http://localhost:8080/member/login", {
-          id: uId,
-          pwd: uPwd,
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            console.log('로그인 성공');
-            const Member = res.data;
-            sessionStorage.setItem("memberNo", Member.memberNo);
-            sessionStorage.setItem("memberId", Member.memberId);
-            sessionStorage.setItem("nickname", Member.nickname);
-            sessionStorage.setItem("admin", Member.admin);
-
-            const redirect = sessionStorage.getItem("redirect");
-            if(redirect) {
-              sessionStorage.removeItem("redirect");
-              window.location.replace(redirect);
-            }else{
-              window.location.replace("/");
-            }
-          } else {
-            throw new Error("로그인에 실패했습니다.");
+    const onClickButton = async (e) => {
+        e.preventDefault();
+        
+        
+        try {
+          // const response = await axios.post('http://localhost:8080/member/login', {
+          //   id: id,
+          //   pwd: pwd,
+          // });
+          // console.log(response.data);
+          sessionStorage.setItem('userNickname', '123124');
+          sessionStorage.setItem('admin', 'Y');
+          setLoggedIn();
+          setLoggedUser('123124')
+          
+          } catch (error) {
+            console.error(error);
           }
         })
         .catch((error) => {
