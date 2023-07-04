@@ -8,7 +8,7 @@ const Pagination = ({ pageInfo, onPageChange }) => {
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(i);
   }
-
+  
   return (
     <div className="pagination">
       {currentPage > 1 && (

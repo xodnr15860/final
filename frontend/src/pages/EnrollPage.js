@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../assets/css/Login.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import "./LoginPage.css"
+
 import Post from "../components/kakaoApi/Post"; 
 
 const EnrollPage = () => {

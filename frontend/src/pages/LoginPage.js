@@ -2,7 +2,6 @@ import { useState } from 'react';
 import '../assets/css/Login.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import "./LoginPage.css"
 
 const LoginPage = () => {
 

@@ -1,32 +1,34 @@
 import { Route, createBrowserRouter, createRoutesFromElements, Navigate } from "react-router-dom";
 import Main from "../components/Main";
 import Board from "../components/Board";
-import MainPage from "../pages/MainPage";
+import LayoutPage from "../pages/LayoutPage";
 import LoginPage from "../pages/LoginPage";
-import Edit from "../components/Edit";
 import MyPage from "../components/mypage/MyPage";
 import LayoutPage2 from "../pages/LayoutPage2";
 import MyEdit from "../components/mypage/MyEdit";
 import Calendar from "../components/mypage/Calendar";
 import Cart from "../components/mypage/Cart";
 import Calorie from "../components/Calorie";
-import ShopPage from "../pages/ShopPage";
+import Product from "../components/Shop/Product";
 import FindIdPage from "../pages/FindIdPage"
 import FindPwdPage from "../pages/FindPwdPage"
 import EnrollPage from "../pages/EnrollPage";
-// import Goods from "../components/Goods";
+import MeetingCard from "../components/Meeting/MeetingCard";
+import MeetingDetail from "../components/Meeting/MeetingDetail";
+
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
-            <Route element = {< MainPage />}>
+            <Route element = {< LayoutPage />}>
                 <Route element = {<Navigate />} />
                 <Route element = {<Main />} index />
                 <Route element = {<Board />} path="/board" />
-                <Route element = {<Edit />} path="/member/edit" />
                 <Route element = {<Calorie />} path="/calorie" />
                 <Route element = {<Cart />} path="/app/cart" />
-                {/* <Route element = {<Goods />} path="goods" /> */}
+                <Route element = {<MeetingCard/>} path="/meet"/>
+                <Route element = {<MeetingDetail/>} path="/meet/:meetNo"/>
+                <Route element = {<Product/>} path="/shop"/>
             </Route>
             
             <Route element = {<LoginPage />} path="/member/login" />
@@ -40,11 +42,6 @@ export const router = createBrowserRouter(
                 <Route element = {<MyEdit />} path="/member/mypage" />
                 <Route element = {<Calendar />} path="" />
             </Route>
-
-            <Route element = {<ShopPage/>} path="/shop">
-                <Route element = {<Navigate/>}/>
-            </Route>
-
 
 
         </Route>

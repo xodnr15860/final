@@ -86,7 +86,7 @@ const Header = () => {
                             <Link to='/board' className="text-black hover:text-green-700" aria-current="page">일반게시판</Link>
                         </li>
                         <li>
-                            <Link to='' className="text-black hover:text-green-700" aria-current="page">모임게시판</Link>
+                            <Link to='/meet' className="text-black hover:text-green-700" aria-current="page">모임게시판</Link>
                         </li>
                         <li>
                             <Link to='/shop' className="text-black hover:text-green-700" aria-current="page">운동용품샵</Link>
