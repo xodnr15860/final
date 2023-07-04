@@ -53,7 +53,7 @@ const Calorie = () => {
             
             });
             
-            // console.log(res.data);
+            console.log(res.data);
             
             if (res.data.I2790 && res.data.I2790.row) {
                 const searchData = res.data.I2790.row.filter((item) => item.DESC_KOR.includes(keyword)).map((item) => ({
@@ -84,10 +84,10 @@ const Calorie = () => {
     }
 
     return (
-        <div className="w-auto">
-          <h1 className="ml-96 text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8 mr-96">음식칼로리</h1>
+        <div className="w-full max-w-1100 min-w-1100 m-auto">
+          <h1 className="text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8">음식칼로리</h1>
       
-          <section className="ml-96 mr-96">
+          <section>
             <div>
               <form onSubmit={onClickBtn}>
                 <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">검색</label>
@@ -100,34 +100,33 @@ const Calorie = () => {
                 </div>
               </form>
               {resultDiv && (
-                <div className="mt-10 mb-20">
-                         <table>
-                            <thead>
-                                <tr className='border-t border-green-700'>  
-                                    <th className='w-96'>음식명</th>
-                                    <th className='w-96'>칼로리</th>
-                                    <br/>
+                <div className="mt-10 mb-10">
+                    <table className='w-full'>
+                        <thead>
+                            <tr className='border-t border-green-700'>  
+                                <th>음식명</th>
+                                <th>칼로리</th>
+                                <br/>
+                            </tr>
+                        </thead>
+                        {/* 현재 페이지에 해당하는 데이터 출력 */}
+                        <tbody className='mt-6'>
+                            {currentItems.map((item) => (
+                                <tr className='border-t border-b'>
+                                    <td className='w-custom'>{item.DESC_KOR}</td>
+                                    <td className='text-center'>{item.NUTR_CONT1} kcal</td>
                                 </tr>
-                            </thead>
-                            {/* 현재 페이지에 해당하는 데이터 출력 */}
-                            <tbody className='mt-6'>
-                                {currentItems.map((item) => (
-                                    <tr className='border-t border-b'>
-                                        <td className='w-custom'>{item.DESC_KOR}</td>
-                                        <td className='text-center'>{item.NUTR_CONT1} kcal</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
               )}
             </div>
           </section>
 
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation">
             
-        <ul className="w-full inline-flex items-center justify-center -space-x-px">
+        <ul className="w-full inline-flex items-center justify-center -space-x-px pb-10">
            
             {/* 이전 페이지 버튼 */}
             {currentPage > 1 && (

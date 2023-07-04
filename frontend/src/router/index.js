@@ -9,6 +9,8 @@ import MyEdit from "../components/mypage/MyEdit";
 import Calendar from "../components/mypage/Calendar";
 import Cart from "../components/mypage/Cart";
 import Calorie from "../components/Calorie";
+import CaloriePrescription from "../components/CaloriePrescription";
+import CaloriePrescriptionResult from "../components/CaloriePrescriptionResult";
 import Product from "../components/Shop/Product";
 import FindIdPage from "../pages/FindIdPage"
 import FindPwdPage from "../pages/FindPwdPage"
@@ -25,12 +27,14 @@ export const router = createBrowserRouter(
                 <Route element = {<Main />} index />
                 <Route element = {<Board />} path="/board" />
                 <Route element = {<Calorie />} path="/calorie" />
+                <Route element = {<CaloriePrescription />} path="/calorie/prescription" />
+                <Route element = {<CaloriePrescriptionResult />} path="/calorie/prescription/result" />
                 <Route element = {<Cart />} path="/app/cart" />
                 <Route element = {<MeetingCard/>} path="/meet"/>
                 <Route element = {<MeetingDetail/>} path="/meet/:meetNo"/>
                 <Route element = {<Product/>} path="/shop"/>
             </Route>
-            
+
             <Route element = {<LoginPage />} path="/member/login" />
             <Route element = {<FindIdPage />} path="/member/find/id"/>
             <Route element = {<FindPwdPage />} path="/member/find/pwd"/>

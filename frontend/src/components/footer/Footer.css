@@ -1,6 +1,8 @@
 
 .footer-container {
-    overflow: auto; /* 스크롤이 생기면 내용을 스크롤하여 보여줌 */
+    width: 100%;
+    bottom: 0;
+    overflow: auto;
     background-color: #f5f5f5;
     padding: 20px;
     width:100%;
@@ -14,6 +16,7 @@
     align-items: center;
     flex-wrap: wrap;
   }
+
 
   .footer-content p {
     margin: 0;

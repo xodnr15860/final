@@ -10,7 +10,7 @@ const LayoutPage2 = () => {
             <Header />
             <div className='flex'>
                 <Sidebar />
-                <div className='flex-1'>
+                <div className='flex-1 flex items-center justify-items-start'>
                     <Outlet />
                 </div>
             </div>    
