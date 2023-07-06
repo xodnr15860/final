@@ -6,7 +6,7 @@ const ContextProvider = ({children}) => {
     setState(prevState => (
       {
         ...prevState,
-        userNickname: data
+        nickname: data
       }
     ))
   }
@@ -15,14 +15,14 @@ const ContextProvider = ({children}) => {
     setState(prevState => (
       {
         ...prevState,
-        loggedIn: !!sessionStorage.getItem('userNickname')
+        loggedIn: !!sessionStorage.getItem('nickname')
       }
     ))
   }
-  const setAdmin = (isAdmin) => {
+  const setAdmin = (admin) => {
     setState(prevState =>  ({
       ...prevState,
-      admin: isAdmin
+      admin: admin
     }))
   }
 
