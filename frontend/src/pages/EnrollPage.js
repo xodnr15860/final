@@ -103,7 +103,7 @@ const EnrollPage = () => {
         <div>
           <div className="login-container mt-[-220px]">
             <Link to ="/">
-              <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo'></img>
+            <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo mx-auto w-[300px] mt-60'></img>
             </Link>
           </div>
             <h1 className='login-title'>회원가입</h1>

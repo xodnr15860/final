@@ -64,7 +64,7 @@ const FindPwdPage = () => {
         <div>
           <div className='login-container'>
             <Link to ="/">
-              <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo'></img>
+              <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo w-[300px] mx-auto mt-20'></img>
             </Link>
           </div>
             <h1 className='login-title'>비밀번호 찾기</h1>
