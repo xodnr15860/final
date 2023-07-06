@@ -33,6 +33,7 @@ export const router = createBrowserRouter(
                 <Route element = {<MeetingCard/>} path="/meet"/>
                 <Route element = {<MeetingDetail/>} path="/meet/:meetNo"/>
                 <Route element = {<Product/>} path="/shop"/>
+
             </Route>
 
             <Route element = {<LoginPage />} path="/member/login" />

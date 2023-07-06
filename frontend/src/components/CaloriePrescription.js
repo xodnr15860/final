@@ -42,7 +42,7 @@ const CaloriePrescription = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8080/calorie/prescribe', {
+            const response = await axios.post('http://localhost:8080/api/calorie/prescribe', {
               gender: gender,
               height: height,
               weight: weight,
@@ -63,14 +63,14 @@ const CaloriePrescription = () => {
             sessionStorage.setItem('targetCalorie', targetCalorie);
             sessionStorage.setItem('carbsCalorie', carbsCalorie);
 
-            navigate('/calorie/prescription/result');
-
-            } catch (error) {
-              console.log(error);
-              
-            }
-          };
-        
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
+        navigate('/calorie/prescription/result');
+    };
+    
     return (
         <div className="w-full max-w-1100 min-w-1100 m-auto">
             <h1 className="text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8">칼로리처방</h1>

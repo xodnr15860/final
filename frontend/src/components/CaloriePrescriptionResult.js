@@ -15,15 +15,16 @@ const CaloriePrescriptionResult = () => {
 
     useEffect(() => {
         // sessionStorage에서 데이터 가져오기
-        const bmrValue = sessionStorage.getItem('bmr');
-        const proteinCalorieValue = sessionStorage.getItem('proteinCalorie');
-        const proteinGramValue = sessionStorage.getItem('proteinGram');
-        const fatCalorieValue = sessionStorage.getItem('fatCalorie');
-        const fatGramValue = sessionStorage.getItem('fatGram');
-        const carbsGramValue = sessionStorage.getItem('carbsGram');
-        const maintenanceValue = sessionStorage.getItem('maintenance');
-        const targetCalorieValue = sessionStorage.getItem('targetCalorie');
-        const carbsCalorieValue = sessionStorage.getItem('carbsCalorie');
+        const bmrValue = Math.round(sessionStorage.getItem('bmr') * 10) / 10;
+        const proteinCalorieValue = Math.round(sessionStorage.getItem('proteinCalorie') * 10) / 10;
+        const proteinGramValue = Math.round(sessionStorage.getItem('proteinGram') * 10) / 10;
+        const fatCalorieValue = Math.round(sessionStorage.getItem('fatCalorie') * 10) / 10;
+        const fatGramValue = Math.round(sessionStorage.getItem('fatGram') * 10) / 10;
+        const carbsGramValue = Math.round(sessionStorage.getItem('carbsGram') * 10) / 10;
+        const maintenanceValue = Math.round(sessionStorage.getItem('maintenance') * 10) / 10;
+        const targetCalorieValue = Math.round(sessionStorage.getItem('targetCalorie') * 10) / 10;
+        const carbsCalorieValue = Math.round(sessionStorage.getItem('carbsCalorie') * 10) / 10;
+
 
         // 데이터 설정
         setBmr(bmrValue);
@@ -41,112 +42,56 @@ const CaloriePrescriptionResult = () => {
 
         }, []);
 
-    // install (please try to align the version of installed @nivo packages)
-// yarn add @nivo/bar
+    // install (please try to align the version of installed @nivo packages).
 
+    const data = [
+        {
+          country: 'bmr',
+          value: Number(bmr)
 
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-const MyResponsiveBar = ({ data /* see data tab */ }) => (
-    <ResponsiveBar
-        data={data}
-        keys={[
-            bmr,
-            proteinCalorie,
-            'sandwich',
-            'kebab',
-            'fries',
-            'donut'
-        ]}
-        indexBy="country"
-        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-        padding={0.35}
-        layout="horizontal"
-        valueScale={{ type: 'linear' }}
-        indexScale={{ type: 'band', round: true }}
-        colors={{ scheme: 'yellow_orange_brown' }}
-        defs={[
-            {
-                id: 'dots',
-                type: 'patternDots',
-                background: 'inherit',
-                color: '#38bcb2',
-                size: 4,
-                padding: 1,
-                stagger: true
-            },
-            {
-                id: 'lines',
-                type: 'patternLines',
-                background: 'inherit',
-                color: '#eed312',
-                rotation: -45,
-                lineWidth: 6,
-                spacing: 10
-            }
-        ]}
-        fill={[
-            {
-                match: {
-                    id: 'fries'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'sandwich'
-                },
-                id: 'lines'
-            }
-        ]}
-        borderColor="#df0c0c"
-        axisTop={null}
-        axisRight={null}
-        axisBottom={null}
-        axisLeft={null}
-        enableGridY={false}
-        labelTextColor={{
-            from: 'color',
-            modifiers: [
-                [
-                    'darker',
-                    '1.5'
-                ]
-            ]
-        }}
-        legends={[
-            {
-                dataFrom: 'keys',
-                anchor: 'bottom-right',
-                direction: 'column',
-                justify: false,
-                translateX: 120,
-                translateY: 0,
-                itemsSpacing: 2,
-                itemWidth: 100,
-                itemHeight: 20,
-                itemDirection: 'left-to-right',
-                itemOpacity: 0.85,
-                symbolSize: 20,
-                effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemOpacity: 1
-                        }
-                    }
-                ]
-            }
-        ]}
-        isInteractive={false}
-        role="application"
-        ariaLabel="Nivo bar chart demo"
-        barAriaLabel={e=>e.id+": "+e.formattedValue+" in country: "+e.indexValue}
-    />
-)
+        },
+        {
+          country: 'proteinCalorie',
+          value: Number(proteinCalorie)
+
+        },
+        {
+          country: 'proteinGram',
+          value: Number(proteinGram)
+
+        },
+        {
+          country: 'fatCalorie',
+          value: Number(fatCalorie)
+
+        },
+        {
+          country: 'fatGram',
+          value: Number(fatGram)
+
+        },
+        {
+          country: 'carbsGram',
+          value: Number(carbsGram)
+
+        },
+        {
+          country: 'maintenance',
+          value: Number(maintenance)
+
+        },
+        {
+          country: 'targetCalorie',
+          value: Number(targetCalorie)
+
+        },
+        {
+          country: 'carbsCalorie',
+          value: Number(carbsCalorie)
+          
+        },
+        
+      ];
 
 
     return (
@@ -190,8 +135,96 @@ const MyResponsiveBar = ({ data /* see data tab */ }) => (
                         <td className='ml-6 mr-1 border'>{carbsCalorie}</td>
                     </tr>
                 </table>
-        </div>
-    );
+
+                <div>
+                <ResponsiveBar
+                    data={data}
+                    keys={['value']}
+                    indexBy="country"
+                    margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                    padding={0.35}
+                    layout="horizontal"
+                    valueScale={{ type: 'linear' }}
+                    indexScale={{ type: 'band', round: true }}
+                    colors={{ scheme: 'yellow_orange_brown' }}
+                    defs={[
+                    {
+                        id: 'dots',
+                        type: 'patternDots',
+                        background: 'inherit',
+                        color: '#38bcb2',
+                        size: 4,
+                        padding: 1,
+                        stagger: true
+                    },
+                    {
+                        id: 'lines',
+                        type: 'patternLines',
+                        background: 'inherit',
+                        color: '#eed312',
+                        rotation: -45,
+                        lineWidth: 6,
+                        spacing: 10
+                    }
+                    ]}
+                    // fill={[
+                    // {
+                    //     match: {
+                    //     id: 'fries'
+                    //     },
+                    //     id: 'dots'
+                    // },
+                    // {
+                    //     match: {
+                    //     id: 'sandwich'
+                    //     },
+                    //     id: 'lines'
+                    // }
+                    // ]}
+                    borderColor="#df0c0c"
+                    axisTop={null}
+                    axisRight={null}
+                    axisBottom={null}
+                    axisLeft={null}
+                    enableGridY={false}
+                    labelTextColor={{
+                    from: 'color',
+                    modifiers: [['darker', '1.5']]
+                    }}
+                    legends={[
+                    {
+                        dataFrom: 'keys',
+                        anchor: 'bottom-right',
+                        direction: 'column',
+                        justify: false,
+                        translateX: 120,
+                        translateY: 0,
+                        itemsSpacing: 2,
+                        itemWidth: 100,
+                        itemHeight: 20,
+                        itemDirection: 'left-to-right',
+                        itemOpacity: 0.85,
+                        symbolSize: 20,
+                        effects: [
+                        {
+                            on: 'hover',
+                            style: {
+                            itemOpacity: 1
+                            }
+                        }
+                        ]
+                    }
+                    ]}
+                    isInteractive={false}
+                    role="application"
+                    ariaLabel="Nivo bar chart demo"
+                    barAriaLabel={(e) =>
+                    e.id + ': ' + e.formattedValue + ' in country: ' + e.indexValue
+                    }
+                />
+                </div>
+            </div>
+        );
 };
 
 export default CaloriePrescriptionResult;

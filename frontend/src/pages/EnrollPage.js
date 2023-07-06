@@ -41,7 +41,7 @@ const EnrollPage = () => {
   };
 
   const IdDoubleCheck = () =>{
-    axios.post("http://localhost:8080/member/", null,{
+    axios.post("http://localhost:8080/api/member/", null,{
       id:enrollInput.id,
     }).then((res)=>{
       alert("사용가능");
@@ -51,7 +51,7 @@ const EnrollPage = () => {
   }
 
   const onClickEnroll = () => {
-    axios.post("http://localhost:8080/member/register", {
+    axios.post("http://localhost:8080/api/member/register", {
         id: enrollInput.id,
         pwd: password,
         nickname: enrollInput.nickName,
@@ -103,7 +103,7 @@ const EnrollPage = () => {
         <div>
           <div className="login-container mt-[-220px]">
             <Link to ="/">
-              <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo'></img>
+              <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo mx-auto w-[300px] mt-60'></img>
             </Link>
           </div>
             <h1 className='login-title'>회원가입</h1>

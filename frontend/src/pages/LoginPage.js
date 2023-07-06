@@ -26,7 +26,7 @@ const LoginPage = () => {
     /** axios post 방식은  기본적으로 헤더가 application/json으로 들어감 */
     const onClickLogin = () => {
       axios
-        .post("http://localhost:8080/member/login", {
+        .post("http://localhost:8080/api/member/login", {
           id: uId,
           pwd: uPwd,
         })
@@ -68,7 +68,7 @@ const LoginPage = () => {
         <div>
           <div className='login-container'>
             <Link to ="/">
-              <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo'></img>
+              <img src='/GoodDay.jpeg' alt='로그인로고' className='login-logo w-[300px] mx-auto mt-20'></img>
             </Link>
           </div>
             <h1 className='login-title'>로그인</h1>
