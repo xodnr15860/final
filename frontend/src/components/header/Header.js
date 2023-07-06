@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Context from '../context/sessionContext';
 
 const Header = () => {
     
-    const { setLoggedUser, admin, setAdmin, setLoggedIn, loggedIn, userNickname } = useContext(Context);
+    const { setLoggedUser, admin, setAdmin, setLoggedIn, loggedIn, nickname } = useContext(Context);
 
     useEffect(() => {
-        const user = sessionStorage.getItem('userNickname')
+        const user = sessionStorage.getItem('nickname')
         const isAdminCheck = sessionStorage.getItem('admin');
         if (user) {
             setLoggedUser(user)
@@ -18,8 +18,17 @@ const Header = () => {
         }
     }, [loggedIn])
 
-    const logout = () =>{
+    const onClickLogout = () =>{
         sessionStorage.clear();
+        window.location.href = '/';
+    }
+
+    const onClickMyPage = () => {
+        const memberNo = sessionStorage.getItem('memberNo');
+        if(!memberNo) {
+            alert('로그인 후 이용부탁드립니다.');
+            window.location.href = '/member/login';
+        }
     }
 
     return (
@@ -30,27 +39,27 @@ const Header = () => {
                 {/* 로그인이 되어 있을 경우 */}
                 {loggedIn ? admin === 'Y' ? (
                     <>
-                        {userNickname}님 환영합니다.
+                        <span className='px-2'>{nickname}님 환영합니다.</span>
+                        <Link to='/admin' className="text-me hover:text-green-700 px-2" >관리자페이지</Link>
                         <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link>
                         <Link to='/app/mypage' className="text-me hover:text-green-700 px-2" >마이페이지</Link>
                         <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link>
-                        <span onClick={logout} className="text-me hover:text-green-700 px-2" >로그아웃</span>
+                        <Link to='/' onClick={onClickLogout} className="text-me hover:text-green-700 px-2" >로그아웃</Link>
                     </>
                 ) : (
                     <>
-                        {userNickname}님 환영합니다.
-                    <Link to='/admin' className="text-me hover:text-green-700 px-2" >관리자페이지</Link>
+                        <span className='px-2'>{nickname}님 환영합니다.</span>
                         <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link>
                         <Link to='/app/mypage' className="text-me hover:text-green-700 px-2" >마이페이지</Link>
                         <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link>
-                        <span onClick={logout} className="text-me hover:text-green-700 px-2" >로그아웃</span>
+                        <Link to='/' onClick={onClickLogout} className="text-me hover:text-green-700 px-2" >로그아웃</Link>
                     </>
                 ) : (
                     <>
                         <Link to='/member/login' className="text-me hover:text-green-700 px-2">로그인</Link>
-                        <Link to='/member/edit' className="text-me hover:text-green-700 px-2" >회원가입</Link>
+                        <Link to='/member/register' className="text-me hover:text-green-700 px-2" >회원가입</Link>
                         <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link>
-                        <Link to='/app/mypage' className="text-me hover:text-green-700 px-2" >마이페이지</Link>
+                        <Link to='/app/mypage' onClick={onClickMyPage} className="text-me hover:text-green-700 px-2" >마이페이지</Link>
                         <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link>
                     </>
                 )}
@@ -77,7 +86,7 @@ const Header = () => {
                             <Link to='/calorie' className="text-black hover:text-green-700" aria-current="page">칼로리사전</Link>
                         </li>
                         <li>
-                            <Link to='/calorie/prescription/result' className="text-black hover:text-green-700" aria-current="page">칼로리처방</Link>
+                            <Link to='/calorie/prescription' className="text-black hover:text-green-700" aria-current="page">칼로리처방</Link>
                         </li>
                         <li>
                             <Link to='/board' className="text-black hover:text-green-700" aria-current="page">일반게시판</Link>
