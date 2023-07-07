@@ -76,6 +76,7 @@ const CaloriePrescription = () => {
             <h1 className="text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8">칼로리처방</h1>
                 <form onSubmit={onClickBtn}>
                     <table className='w-full border'>
+                        <tbody>
                         <tr className='border'>
                             <td className='bg-green-600 w-40 text-white h-20 pl-4 border'><label htmlFor="gender" >성별</label></td>
                             <td>
@@ -96,12 +97,14 @@ const CaloriePrescription = () => {
                             <td><input type="text" value={age} onChange={onChangeAge} id="age" name="age" className='border w-24 ml-6 h-8' required/> 세</td>
                         </tr>
                         <tr className='border'>
-                            <td className='bg-green-600 text-white h-20 pl-4 border'><label htmlFor="activity">활동량</label></td>
-                                <tr><td><input type="radio" value='1' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '1'} className='ml-6 mr-1' required/>활동량 거의 없음(운동 안 함)</td></tr>
-                                <tr><td><input type="radio" value='2' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '2'} className='ml-6 mr-1' required/>활동량 조금 있음(주 1~3회 운동)</td></tr>
-                                <tr><td><input type="radio" value='3' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '3'} className='ml-6 mr-1' required/>활동량 보통(주 4~5회 운동)</td></tr>
-                                <tr><td><input type="radio" value='4' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '4'} className='ml-6 mr-1' required/>활동량 활발(주 6~7회 운동) </td></tr>
-                                <tr><td><input type="radio" value='5' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '5'} className='ml-6 mr-1' required/>활동량 아주 많음(일 2회 운동)</td></tr>
+                        <td className='bg-green-600 text-white h-20 pl-4 border'><label htmlFor="activity">활동량</label></td>
+                            <td>
+                                <input type="radio" value='1' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '1'} className='ml-6 mr-1' required/>활동량 거의 없음(운동 안 함)<br/>
+                                <input type="radio" value='2' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '2'} className='ml-6 mr-1' required/>활동량 조금 있음(주 1~3회 운동)<br/>
+                                <input type="radio" value='3' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '3'} className='ml-6 mr-1' required/>활동량 보통(주 4~5회 운동)<br/>
+                                <input type="radio" value='4' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '4'} className='ml-6 mr-1' required/>활동량 활발(주 6~7회 운동)<br/>
+                                <input type="radio" value='5' onChange={onChangeActivity} id="activity" name='activity' checked={activity === '5'} className='ml-6 mr-1' required/>활동량 아주 많음(일 2회 운동)<br/>
+                            </td>
                         </tr>
                         <tr className='border'>
                             <td className='bg-green-600 text-white h-20 pl-4 border'><label htmlFor="target">목표</label></td>
@@ -110,6 +113,7 @@ const CaloriePrescription = () => {
                                 <input type="radio" value="증량" onChange={onChangeTarget} id="target" name='target' checked={target === '증량'} className='ml-6 mr-1'/>증량
                             </td>
                         </tr>
+                        </tbody>
                     </table>
                     <div className='text-center'>
                     <button type="submit" className='focus:outline-none text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-8 mt-8 dark:bg-green-600 dark:hover:bg-green-700'>칼로리 처방</button>

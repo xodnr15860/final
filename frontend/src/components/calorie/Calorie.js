@@ -12,26 +12,27 @@ const Calorie = () => {
     const perPage = 20;
     const maxPages = 10;
 
-    // 현재 페이지에 해당하는 데이터 계산
+    // 현재 페이지 데이터 계산
     const indexOfLastItem = currentPage * perPage;
     const indexOfFirstItem = indexOfLastItem - perPage;
     const currentItems = searchData.slice(indexOfFirstItem, indexOfLastItem);
 
-    // 전체 페이지 수를 계산합니다.
+    // 전체 페이지 수 계산
     const totalPages = Math.ceil(searchData.length / perPage);
 
-    // 페이징 시작 인덱스를 계산합니다.
-    const startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
+    // 페이징 버튼 배열 생성
+    const pageNumbers = [];
+    const visiblePages = Math.min(maxPages, totalPages);
+    const pageOffset = (Math.ceil(currentPage / maxPages) - 1) * maxPages;
 
-    // 페이징 종료 인덱스를 계산합니다.
-    let endPage = startPage + maxPages - 1;
-    if (endPage > totalPages) {
-    endPage = totalPages;
+    let startPage = 1 + pageOffset;
+    let endPage = Math.min(startPage + visiblePages - 1, totalPages);
+
+    for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
     }
 
-
     // 페이지 변경 핸들러
-
     const onPageChange = (page) => {
         setCurrentPage(page);
     };
@@ -66,16 +67,18 @@ const Calorie = () => {
                     NUTR_CONT6: item.NUTR_CONT6, // 나트륨
                     SERVING_SIZE: item.SERVING_SIZE, // 1회제공량
                     DESC_KOR: item.DESC_KOR, // 이름
-
                 }));
 
                 setSearchData(searchData);
                 setResultDiv(true);
+                setCurrentPage(1);
                 
-          } else {
-            setSearchData([]);
-            setResultDiv(false);
-          }
+            } else {
+                setSearchData([]);
+                setResultDiv(true);
+                setCurrentPage(1);
+
+            }
             
         } catch (error) {
             console.log(error);
@@ -109,24 +112,24 @@ const Calorie = () => {
                             </tr>
                         </thead>
                         {/* 현재 페이지에 해당하는 데이터 출력 */}
-                        {currentItems.length > 0 ? (
-                            <tbody className="mt-6">
-                            {currentItems.map((item) => (
-                                <tr className="border-t border-b" key={item.NUM}>
-                                    <td className="w-custom">{item.DESC_KOR}</td>
-                                    <td className="text-center">{item.NUTR_CONT1} kcal</td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        ) : (
+                        {searchData.length === 0 ? (
                             <tbody className="mt-6">
                                 <tr className="border-t border-b">
                                     <td colSpan="2" className="text-center">
-                                    검색 결과가 없습니다.
+                                        검색 결과가 없습니다.
                                     </td>
                                 </tr>
                             </tbody>
-                            )}
+                        ) : (
+                            <tbody className="mt-6">
+                                {currentItems.map((item) => (
+                                    <tr className="border-t border-b" key={item.NUM}>
+                                        <td className="w-custom">{item.DESC_KOR}</td>
+                                        <td className="text-center">{item.NUTR_CONT1} kcal</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        )}
                     </table>
                 </div>
               )}
@@ -138,17 +141,17 @@ const Calorie = () => {
         <ul className="w-full inline-flex items-center justify-center -space-x-px pb-10">
            
             {/* 이전 페이지 버튼 */}
-            {currentPage > 1 && resultDiv > 0 && (
+            {currentPage > 1 && searchData.length > 0 && (
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 className="bg-white border border-gray-300 rounded-l-lg px-3 py-2 hover:bg-gray-100 dark:border-gray-700">
                 <span className="sr-only">이전</span>
                 <svg
-                aria-hidden="true"
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
                 >
                 <path
                     fillRule="evenodd"
@@ -159,14 +162,18 @@ const Calorie = () => {
             </button>
             )}
 
-            {/*페이지 갯수 */}
-            {Array.from({ length: endPage - startPage + 1 }).map((_, index) => (
-                <li key={startPage + index}>
-                    <p className={`px-3 py-2 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 ${currentPage === startPage + index ? "z-10 border-blue-300 bg-green-500 hover:bg-green-700" : ""}`}
-                        onClick={() => onPageChange(startPage + index)}>
-                        {startPage + index}
-                    </p>
-                </li>
+            {/*페이징 버튼 렌더링 */}
+            {pageNumbers.map((pageNumber) => (
+            <li key={pageNumber}>
+                <p
+                className={`px-3 py-2 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 ${
+                    currentPage === pageNumber ? "z-10 border-blue-300 bg-green-200 hover:bg-green-400" : ""
+                }`}
+                onClick={() => onPageChange(pageNumber)}
+                >
+                {pageNumber}
+                </p>
+            </li>
             ))}
 
             {/* 다음 페이지 버튼 */}

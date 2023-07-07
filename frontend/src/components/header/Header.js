@@ -31,6 +31,10 @@ const Header = () => {
         }
     }
 
+    const onClickCalorie = () => {
+        window.location.href = '/calorie';
+    }
+
     return (
        <header>
         <nav className="bg-white">
@@ -83,7 +87,7 @@ const Header = () => {
                 <div className="flex items-center">
                     <ul className="flex justify-center font-medium mt-0 space-x-32">
                         <li>
-                            <Link to='/calorie' className="text-black hover:text-green-700" aria-current="page">칼로리사전</Link>
+                            <Link to='/calorie' onClick={onClickCalorie} className="text-black hover:text-green-700" aria-current="page">칼로리사전</Link>
                         </li>
                         <li>
                             <Link to='/calorie/prescription' className="text-black hover:text-green-700" aria-current="page">칼로리처방</Link>
