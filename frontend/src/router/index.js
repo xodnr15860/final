@@ -19,6 +19,8 @@ import MeetingCard from "../components/Meeting/MeetingCard";
 import MeetingDetail from "../components/Meeting/MeetingDetail";
 import BoardDetail from "../components/board/BoardDetail";
 import BoardEdit from "../components/board/BoardEdit";
+import Admin from "../components/admin/Admin";
+import LayoutPage3 from "../pages/LayoutPage3";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -26,8 +28,8 @@ export const router = createBrowserRouter(
             <Route element = {< LayoutPage />}>
                 <Route element = {<Navigate />} />
                 <Route element = {<Main />} index />
-                <Route element = {<Board />} path="/board" />
-                <Route element = {<BoardDetail />} path="/board/detail" />
+                <Route element = {<Board />} path="/board/" />
+                <Route element = {<BoardDetail />} path="/board/detail/:freeNo" />
                 <Route element = {<BoardEdit />} path="/board/edit" />
                 <Route element = {<Calorie />} path="/calorie" />
                 <Route element = {<CaloriePrescription />} path="/calorie/prescription" />
@@ -49,6 +51,10 @@ export const router = createBrowserRouter(
                 <Route element = {<MyPage />} path="/app/mypage" />
                 <Route element = {<MyEdit />} path="/member/mypage" />
                 <Route element = {<Calendar />} path="" />
+            </Route>
+
+            <Route element = {<LayoutPage3 />}>
+                <Route element = {<Admin />} path="/admin" />
             </Route>
 
 

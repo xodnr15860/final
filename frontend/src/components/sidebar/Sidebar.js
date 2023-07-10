@@ -48,14 +48,14 @@ const Sidebar = () => {
             To do List
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link
             to="/app/mypage/order_list_opt"
             className=" hover:text-green-700 font-bold px-4 py-2 rounded-lg transition-colors duration-200"
           >
             주문내역
           </Link>
-        </li>
+        </li> */}
         {/* Add more sidebar links as needed */}
       </ul>
     </div>

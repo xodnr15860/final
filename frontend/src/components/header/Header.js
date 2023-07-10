@@ -45,26 +45,26 @@ const Header = () => {
                     <>
                         <span className='px-2'>{nickname}님 환영합니다.</span>
                         <Link to='/admin' className="text-me hover:text-green-700 px-2" >관리자페이지</Link>
-                        <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link>
+                        {/* <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link> */}
                         <Link to='/app/mypage' className="text-me hover:text-green-700 px-2" >마이페이지</Link>
-                        <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link>
+                        {/* <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link> */}
                         <Link to='/' onClick={onClickLogout} className="text-me hover:text-green-700 px-2" >로그아웃</Link>
                     </>
                 ) : (
                     <>
                         <span className='px-2'>{nickname}님 환영합니다.</span>
-                        <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link>
+                        {/* <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link> */}
                         <Link to='/app/mypage' className="text-me hover:text-green-700 px-2" >마이페이지</Link>
-                        <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link>
+                        {/* <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link> */}
                         <Link to='/' onClick={onClickLogout} className="text-me hover:text-green-700 px-2" >로그아웃</Link>
                     </>
                 ) : (
                     <>
                         <Link to='/member/login' className="text-me hover:text-green-700 px-2">로그인</Link>
                         <Link to='/member/register' className="text-me hover:text-green-700 px-2" >회원가입</Link>
-                        <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link>
+                        {/* <Link to='/app/cart' className="text-me hover:text-green-700 px-2" >장바구니</Link> */}
                         <Link to='/app/mypage' onClick={onClickMyPage} className="text-me hover:text-green-700 px-2" >마이페이지</Link>
-                        <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link>
+                        {/* <Link to='/member/login' className="text-me hover:text-green-700 px-2" >고객센터</Link> */}
                     </>
                 )}
 
@@ -98,9 +98,9 @@ const Header = () => {
                         <li>
                             <Link to='/meet' className="text-black hover:text-green-700" aria-current="page">모임게시판</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to='/shop' className="text-black hover:text-green-700" aria-current="page">운동용품샵</Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
