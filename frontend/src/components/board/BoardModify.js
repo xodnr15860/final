@@ -1,17 +1,42 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const BoardEdit = () => {
+const BoardModify = () => {
+  const { freeNo } = useParams();
+  const navigate = useNavigate();
   const [freeTitle, setFreeTitle] = useState('');
   const [freeContent, setFreeContent] = useState('');
-  const [file, setFile] = useState(null);
-  const [selectedFileName, setSelectedFileName] = useState('');
+  const [file, setFile] = useState();
   const [images, setImages] = useState([]);
+  const [selectedFileName, setSelectedFileName] = useState('');
   const [selectedImageNames, setSelectedImageNames] = useState([]);
+  const [uploadFileName, setUploadFileName] = useState('');
+  const [storeFileName, setStoreFileName] = useState('');
 
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    // freeNo를 사용하여 기존 글의 정보를 불러오는 로직 구현
+
+    const fetchBoardData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/api/free/${freeNo}`);
+        const boardData = res.data;
+        console.log(boardData);
+        setFreeTitle(boardData.freeTitle);
+        setFreeContent(boardData.freeContent);
+        setSelectedFileName(boardData.file || '');
+        setSelectedImageNames(boardData.images || []);
+        setUploadFileName(boardData.file.uploadFileName || '');
+        setStoreFileName(boardData.file.storeFileName || '');
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBoardData();
+  }, [freeNo]);
 
   const onChangeTitle = (e) => {
     setFreeTitle(e.target.value);
@@ -23,6 +48,7 @@ const BoardEdit = () => {
 
   const onChangeFile = (e) => {
     const selectedFile = e.target.files[0];
+    selectedFile.uploadFileName = selectedFile.name; // uploadFileName 속성 추가
     setFile(selectedFile || ''); // 파일을 선택하지 않은 경우에도 빈 값으로 설정
 
      // 선택된 파일의 이름 설정
@@ -34,31 +60,46 @@ const BoardEdit = () => {
 
   };  
 
-  const onClickDeleteFile = () => {
-    setFile(null);
-    setSelectedFileName('');
-  };
-
   const onChangeImages = (e) => {
     const files = Array.from(e.target.files);
     setImages(files);
 
      // 선택된 이미지 파일들의 이름 설정
-    const imageNames = files.map((file) => file.name);
-    setSelectedImageNames(imageNames);
-  };
+     const imageNames = files.map((file) => {
+        const uploadFileName = file.uploadFileName || '';
+        return {
+          storeFileName: uploadFileName, // 수정된 부분: storeFileName 대신 uploadFileName 사용
+          uploadFileName: file.name
+        };
+      });
+      setSelectedImageNames(imageNames);
+    };
+    
+    const onClickDeleteFile = () => {
+        setFile(null);
+        setSelectedFileName('');
+      };
 
-  const onClickDeleteImage = (imageName) => {
+    const onClickDeleteImage = (imageName) => {
     const updatedImages = images.filter((image) => image.name !== imageName);
     const updatedImageNames = selectedImageNames.filter((name) => name !== imageName);
 
     setImages(updatedImages);
     setSelectedImageNames(updatedImageNames);
-  };
-
+    };
+    
   const onSubmitBtn = async (e) => {
-
     e.preventDefault();
+    // 수정된 글을 업데이트하는 로직을 구현합니다.
+
+    // 파일 삭제 요청
+    if (storeFileName) {
+        try {
+            await axios.delete(`http://localhost:8080/api/file/${storeFileName}`);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     const formData = new FormData();
     formData.append('freeTitle', freeTitle);
@@ -81,7 +122,7 @@ const BoardEdit = () => {
       
     
     try {
-        const res = await axios.post('http://localhost:8080/api/free', formData, {
+        const res = await axios.post(`http://localhost:8080/api/free/${freeNo}`, formData, {
 
         });
         console.log(res.data);
@@ -91,12 +132,11 @@ const BoardEdit = () => {
 
     // 게시판 목록으로 이동
     navigate('/board');
-    
-  };
 
+  };
   return (
     <div className="w-full max-w-1100 min-w-1100 m-auto">
-        <h1 className="text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8">게시글 작성</h1>
+        <h1 className="text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8">게시글 수정</h1>
          <form onSubmit={onSubmitBtn} encType='multipart/form-data'>
                 
                 <table className='w-full mb-4'>
@@ -123,7 +163,7 @@ const BoardEdit = () => {
 
                     {selectedFileName && (
                       <div className='mb-4'>
-                        첨부된 파일: {selectedFileName}
+                        첨부된 파일: {uploadFileName}
                         <button type="button" onClick={onClickDeleteFile}>
                         <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -152,30 +192,30 @@ const BoardEdit = () => {
                     {selectedImageNames.length > 0 && (
                     <div>
                       첨부된 이미지:
-                      <ul>
-                        {selectedImageNames.map((imageName, index) => (
-                          <li key={index}>
-                            {imageName}
-                            <button type='button'
-                              onClick={() => onClickDeleteImage(imageName)}
-                              className="ml-2"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-4 w-4 text-red-500 cursor-pointer"
-                                viewBox="0 0 20 20"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              >
-                                <path d="M6 6L14 14M6 14L14 6" />
-                              </svg>
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+                        <ul>
+                            {selectedImageNames.map((image, index) => (
+                                <li key={index}>
+                                    {image.uploadFileName}
+                                    <button type='button'
+                                    onClick={() => onClickDeleteImage()}
+                                    className="ml-2"
+                                    >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-4 w-4 text-red-500 cursor-pointer"
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M6 6L14 14M6 14L14 6" />
+                                    </svg>
+                                    </button>    
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                     )}
 
@@ -192,4 +232,4 @@ const BoardEdit = () => {
   );
 };
 
-export default BoardEdit;
+export default BoardModify;

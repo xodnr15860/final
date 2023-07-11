@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import qs from 'qs';
 
 const BoardDetail = () => {
@@ -14,9 +14,14 @@ const BoardDetail = () => {
 
     
     const { freeNo } = useParams();
-    
+    const navigate = useNavigate();
+
     const memberNo = sessionStorage.getItem('memberNo');
+
+    const boardMemberNo = boardData && boardData.memberNo === parseInt(memberNo);
+
     
+
     const formData = qs.stringify({
       memberNo: memberNo,
       freeReContent: freeReContent
@@ -134,17 +139,39 @@ const BoardDetail = () => {
         }
       };
       
+      // 게시글 삭제 함수
+      const onClickDeleteBoardBtn = async (freeNo) => {
+      
+        const confirmed = window.confirm('정말 삭제하시겠습니까?');
+        if (!confirmed) {
+          return;
+        }
+        try {
+          await axios.delete(`http://localhost:8080/api/free/${freeNo}`);
+          navigate('/board');
+        } catch (error) {
+
+        }
+      }
+
+      // 게시글 수정 버튼 클릭 시 실행되는 함수
+      const onClickEditBoardBtn = () => {
+        navigate(`/board/modify/${boardData.freeNo}`);
+      };
 
       return (
         <div className="w-full max-w-1100 min-w-1100 m-auto mb-10">
          <h1 className="text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8">일반게시판</h1>
             {boardData && (
-            <div className="w-full max-w-1100 min-w-1100 m-auto mb-10">
+            <div className="w-full max-w-1100 min-w-1100 m-auto">
                 <div className="bg-white shadow-md rounded-md p-6">
                     <h1 className="text-3xl font-bold mb-4">{boardData.freeTitle}</h1><hr className='border-green-200'/><br/>
                         <div className="flex items-center justify-between mb-6">
                             <p className="text-gray-800 mr-2 font-semibold">{boardData.nickname}</p>
                             <div className='flex justify-end mr-10'>
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
                             {boardData.freeCreateDate === boardData.freeModifyDate ? (
                                 <p className="text-sm">{formatDate(boardData.freeCreateDate)}</p>
                             ) : (
@@ -172,6 +199,7 @@ const BoardDetail = () => {
                 {/* 댓글 리스트 */}
                 <div className="bg-white shadow-md rounded-md mt-6 p-6">
                     <h2 className="text-2xl font-bold mb-4">댓글</h2>
+                    
 
                     {replies.map((reply) => {
                       const isDeleted = deletedReplyIds.includes(reply.freeReNo);
@@ -190,19 +218,12 @@ const BoardDetail = () => {
                             {/* memberNo가 있을 때 수정,삭제 버튼 활성화 */}
                             {isEditable && !isEditing && (
                             <div className="flex items-center text-gray-500 text-sm">
-                              <button onClick={() => onClickEditReply(reply.freeReNo)} className="mr-2">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  className="h-4 w-4 text-black cursor-pointer"
-                                  viewBox="0 0 20 20"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="2"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                >
-                                    <path d="M12.357 3.318l1.325-1.326a1 1 0 0 1 1.413 0l1.95 1.95a1 1 0 0 1 0 1.414L9.636 13.232a1 1 0 0 1-0.707 0.293L6 12l6-6L12.357 3.318z" />
-                                </svg>
+                              <button onClick={() => onClickEditReply(reply.freeReNo)} className="flex items-center mr-2">
+                                <span className="inline-block w-4 h-4">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                  </svg>
+                                </span>
                               </button>
                               <button onClick={() => onClickDeleteReply(reply.freeReNo)}>
                                 <svg
@@ -260,9 +281,28 @@ const BoardDetail = () => {
                 </div>
 
             </div>
-        )}
+            )}
+            {memberNo && boardData && boardMemberNo && (
+            <form onSubmit={(event) => {
+              event.preventDefault(); // 기본 동작 막기
+              onClickDeleteBoardBtn(boardData.freeNo);
+            }}>
+              <div className='flex'> 
+                <button type="submit" className='focus:outline-none text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-3 mr-2 mb-8 mt-8 dark:bg-green-600 dark:hover:bg-green-700'>글 삭제</button>
+                <button
+                onClick={onClickEditBoardBtn}
+                className='focus:outline-none text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-3 mr-2 mb-8 mt-8 dark:bg-green-600 dark:hover:bg-green-700'
+                >
+                글 수정
+                </button>
+              </div>
+            </form>
+        
 
+            )}
+        
         </div>
+        
       );
     };
 

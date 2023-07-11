@@ -1,4 +1,4 @@
-import { Route, createBrowserRouter, createRoutesFromElements, Navigate } from "react-router-dom";
+import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import Main from "../components/Main";
 import Board from "../components/board/Board";
 import LayoutPage from "../pages/LayoutPage";
@@ -21,16 +21,17 @@ import BoardDetail from "../components/board/BoardDetail";
 import BoardEdit from "../components/board/BoardEdit";
 import Admin from "../components/admin/Admin";
 import LayoutPage3 from "../pages/LayoutPage3";
+import BoardModify from "../components/board/BoardModify";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
         <Route>
             <Route element = {< LayoutPage />}>
-                <Route element = {<Navigate />} />
                 <Route element = {<Main />} index />
                 <Route element = {<Board />} path="/board/" />
-                <Route element = {<BoardDetail />} path="/board/detail/:freeNo" />
                 <Route element = {<BoardEdit />} path="/board/edit" />
+                <Route element = {<BoardModify />} path="/board/modify/:freeNo" />
+                <Route element = {<BoardDetail />} path="/board/detail/:freeNo" />
                 <Route element = {<Calorie />} path="/calorie" />
                 <Route element = {<CaloriePrescription />} path="/calorie/prescription" />
                 <Route element = {<CaloriePrescriptionResult />} path="/calorie/prescription/result" />
