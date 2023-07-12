@@ -6,7 +6,7 @@ import LoginPage from "../pages/LoginPage";
 import MyPage from "../components/mypage/MyPage";
 import LayoutPage2 from "../pages/LayoutPage2";
 import MyEdit from "../components/mypage/MyEdit";
-import Calendar from "../components/mypage/Calendar";
+// import Calendar from "../components/mypage/Calendar";
 import Cart from "../components/mypage/Cart";
 import Calorie from "../components/calorie/Calorie";
 import CaloriePrescription from "../components/calorie/CaloriePrescription";
@@ -22,6 +22,7 @@ import BoardEdit from "../components/board/BoardEdit";
 import Admin from "../components/admin/Admin";
 import LayoutPage3 from "../pages/LayoutPage3";
 import BoardModify from "../components/board/BoardModify";
+import MyBoard from "../components/mypage/MyBoard";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -39,7 +40,6 @@ export const router = createBrowserRouter(
                 <Route element = {<MeetingCard/>} path="/meet"/>
                 <Route element = {<MeetingDetail/>} path="/meet/:meetNo"/>
                 <Route element = {<Product/>} path="/shop"/>
-
             </Route>
 
             <Route element = {<LoginPage />} path="/member/login" />
@@ -47,22 +47,16 @@ export const router = createBrowserRouter(
             <Route element = {<FindPwdPage />} path="/member/find/pwd"/>
             <Route element = {<EnrollPage />} path="/member/register"/>
 
-
             <Route element = {<LayoutPage2 />}>
-                <Route element = {<MyPage />} path="/app/mypage" />
-                <Route element = {<MyEdit />} path="/member/mypage" />
-                <Route element = {<Calendar />} path="" />
+                <Route element = {<MyPage />} path="/member/mypage" />
+                <Route element = {<MyEdit />} path="/member/edit" />
+                <Route element = {<MyBoard />} path="/member/board" />
             </Route>
 
             <Route element = {<LayoutPage3 />}>
                 <Route element = {<Admin />} path="/admin" />
             </Route>
 
-
         </Route>
-        
-        
-        
-        
     )
 )

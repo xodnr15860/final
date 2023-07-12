@@ -169,8 +169,8 @@ const BoardDetail = () => {
                         <div className="flex items-center justify-between mb-6">
                             <p className="text-gray-800 mr-2 font-semibold">{boardData.nickname}</p>
                             <div className='flex justify-end mr-10'>
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
                             {boardData.freeCreateDate === boardData.freeModifyDate ? (
                                 <p className="text-sm">{formatDate(boardData.freeCreateDate)}</p>
@@ -220,8 +220,8 @@ const BoardDetail = () => {
                             <div className="flex items-center text-gray-500 text-sm">
                               <button onClick={() => onClickEditReply(reply.freeReNo)} className="flex items-center mr-2">
                                 <span className="inline-block w-4 h-4">
-                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                                   </svg>
                                 </span>
                               </button>
@@ -233,7 +233,7 @@ const BoardDetail = () => {
                                   fill="none"
                                   stroke="currentColor"
                                   strokeWidth="2"
-                                  strokeLinecap="round"
+                                  strokLinecap="round"
                                   strokeLinejoin="round"
                                 >
                                   <path d="M6 6L14 14M6 14L14 6" />

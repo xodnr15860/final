@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import '../../assets/css/Login.scss';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Post from "../../components/kakaoApi/Post"; 
@@ -83,7 +83,7 @@ const MyEdit = () => {
      */
 
     return (
-        <div className='m-auto'>
+        <div className='ml-[470px] mb-10'>
             <h1 className='login-title m-auto'>내 정보 수정</h1>
                 <section className='enroll-form'>
                     <form method="post" >

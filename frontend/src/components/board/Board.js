@@ -15,30 +15,6 @@ const Board = () => {
     setCurrentPage(page);
   };
 
-  // const perPage = 20;
-  // const maxPages = 10;
-
-  // 현재 페이지 데이터 계산
-  // const indexOfLastItem = pageInfo.currentPage * pageInfo.boardLimit;
-  // const indexOfFirstItem = indexOfLastItem - pageInfo.boardLimit;
-  // const currentItems = searchData.slice(indexOfFirstItem, indexOfLastItem);
-
-  // 전체 페이지 수 계산
-  // const totalPages = Math.ceil(response.data.length / perPage);
-
-  // 페이징 버튼 배열 생성
-  // const pageNumbers = [];
-  // const visiblePages = Math.min(maxPages, totalPages);
-  // const pageOffset = (Math.ceil(currentPage / maxPages) - 1) * maxPages;
-
-  // let startPage = 1 + pageOffset;
-  // let endPage = Math.min(startPage + visiblePages - 1, totalPages);
-
-  // for (let i = startPage; i <= endPage; i++) {
-  //     pageNumbers.push(i);
-  // }
-
-
   const onClickBoardEdit = () => {
     navigate('/board/edit');
   }
@@ -82,6 +58,9 @@ const Board = () => {
   return (
     <div className="w-full max-w-1100 min-w-1100 m-auto mb-10">
       <h1 className="text-3xl font-bold text-green-700 mt-10 border-b-2 border-green-700 mb-8">일반게시판</h1>
+      {boardData.length === 0 ? (
+        <p className="text-center text-gray-500 mt-10">게시글이 없습니다.</p>
+      ) : (
       <table className="w-full">
         <thead>
           <tr>
@@ -109,6 +88,7 @@ const Board = () => {
           ))}
         </tbody>
       </table>
+      )}
 
       <nav aria-label="Page navigation">
             
@@ -141,7 +121,7 @@ const Board = () => {
             <li key={pageNumber}>
                 <p
                 className={`px-3 py-2 leading-tight bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 ${
-                    currentPage === pageNumber ? "z-10 border-blue-300 bg-green-200 hover:bg-green-400" : ""
+                    currentPage === pageNumber ? "z-10 border-blue-300 bg-green-400 hover:bg-green-400" : ""
                 }`}
                 onClick={() => onPageChange(pageNumber)}
                 >

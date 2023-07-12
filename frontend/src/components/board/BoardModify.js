@@ -27,10 +27,9 @@ const BoardModify = () => {
         setFreeContent(boardData.freeContent);
         setSelectedFileName(boardData.file || '');
         setSelectedImageNames(boardData.images || []);
-        setUploadFileName(boardData.file.uploadFileName || '');
+        setUploadFileName(boardData.file.uploadFileName || ''); // 파일 이름 설정 추가
         setStoreFileName(boardData.file.storeFileName || '');
-
-      } catch (error) {
+        } catch (error) {
         console.error(error);
       }
     };
@@ -48,21 +47,24 @@ const BoardModify = () => {
 
   const onChangeFile = (e) => {
     const selectedFile = e.target.files[0];
+    console.log(selectedFile);
     selectedFile.uploadFileName = selectedFile.name; // uploadFileName 속성 추가
-    setFile(selectedFile || ''); // 파일을 선택하지 않은 경우에도 빈 값으로 설정
+    setFile(selectedFile); // 파일을 선택하지 않은 경우에도 빈 값으로 설정
 
      // 선택된 파일의 이름 설정
     if (selectedFile) {
-      setSelectedFileName(selectedFile.name);
+      setSelectedFileName(selectedFile.name); 
+      setUploadFileName(selectedFile.name); // 수정된 부분: uploadFileName 설정
     } else {
       setSelectedFileName('');
+      setUploadFileName(''); // 수정된 부분: uploadFileName 초기화
     }
 
   };  
 
   const onChangeImages = (e) => {
     const files = Array.from(e.target.files);
-    setImages(files);
+    setImages(files); // 추가 된 이미지들이 배열 형식으로 Images에 담김.
 
      // 선택된 이미지 파일들의 이름 설정
      const imageNames = files.map((file) => {
@@ -72,45 +74,77 @@ const BoardModify = () => {
           uploadFileName: file.name
         };
       });
-      setSelectedImageNames(imageNames);
+      setSelectedImageNames(imageNames); // storeFileName이 비어있음? 왜? uploadFileName이 들어갔는데 왜?
     };
     
-    const onClickDeleteFile = () => {
-        setFile(null);
-        setSelectedFileName('');
+    const onClickDeleteFile = async () => {
+        try {
+            if (storeFileName) {
+                await axios.delete(`http://localhost:8080/api/file/${storeFileName}`);
+              }
+              setFile(null);
+              setUploadFileName('');
+              setStoreFileName(''); // 파일 삭제 시 storeFileName 초기화
+            } catch (error) {
+              console.error(error);
+            }
       };
 
-    const onClickDeleteImage = (imageName) => {
-    const updatedImages = images.filter((image) => image.name !== imageName);
-    const updatedImageNames = selectedImageNames.filter((name) => name !== imageName);
+    // const onClickDeleteImage = (imageName) => {
+    //     const updatedImages = images.filter((image) => image.uploadFileName !== imageName);
+    //     const updatedImageNames = selectedImageNames.filter((name) => name.uploadFileName !== imageName);
+      
+    //     setImages(updatedImages);
+    //     setSelectedImageNames(updatedImageNames);
+    //   };
 
-    setImages(updatedImages);
-    setSelectedImageNames(updatedImageNames);
-    };
+      const onClickDeleteImage = (imageName) => {
+        const updatedImages = images.filter((image) => image.uploadFileName !== imageName);
+        const updatedImageNames = selectedImageNames.filter((name) => name.uploadFileName !== imageName);
+      
+        // 이미지 삭제 요청
+        const storeFileName = selectedImageNames.find((name) => name.uploadFileName === imageName)?.storeFileName;
+        if (storeFileName) {
+          try {
+            axios.delete(`http://localhost:8080/api/file/${storeFileName}`);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      
+        setImages(updatedImages);
+        setSelectedImageNames(updatedImageNames);
+      };
     
   const onSubmitBtn = async (e) => {
     e.preventDefault();
     // 수정된 글을 업데이트하는 로직을 구현합니다.
 
     // 파일 삭제 요청
-    if (storeFileName) {
-        try {
-            await axios.delete(`http://localhost:8080/api/file/${storeFileName}`);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    // if (storeFileName) {
+    //     try {
+    //         await axios.delete(`http://localhost:8080/api/file/${storeFileName}`);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
     const formData = new FormData();
     formData.append('freeTitle', freeTitle);
     formData.append('freeContent', freeContent);
     formData.append('memberNo', sessionStorage.getItem('memberNo'));
-
+     
+    // 파일 업로드 전에 기존의 첨부된 파일을 처리
+    if (storeFileName && !file) {
+    // 기존 파일이 있고 새로운 파일이 없으면 기존 파일을 그대로 유지
+    formData.append('file', new Blob([])); // 빈 값을 추가
+} else {
     if (file) {
         formData.append('file', file);
       } else {
         formData.append('file', new Blob([])); // 파일이 없을 경우 빈 값을 추가
       }
+    }
    
     if (images.length > 0) {
         for (let i = 0; i < images.length; i++) {
@@ -161,7 +195,7 @@ const BoardModify = () => {
                         <input id="file" name="file" type="file" className="sr-only" onChange={onChangeFile} />
                     </label>
 
-                    {selectedFileName && (
+                    {uploadFileName && (
                       <div className='mb-4'>
                         첨부된 파일: {uploadFileName}
                         <button type="button" onClick={onClickDeleteFile}>
@@ -193,11 +227,11 @@ const BoardModify = () => {
                     <div>
                       첨부된 이미지:
                         <ul>
-                            {selectedImageNames.map((image, index) => (
+                              {selectedImageNames.map((image, index) => (
                                 <li key={index}>
                                     {image.uploadFileName}
                                     <button type='button'
-                                    onClick={() => onClickDeleteImage()}
+                                    onClick={() => onClickDeleteImage(image.uploadFileName)}
                                     className="ml-2"
                                     >
                                     <svg

@@ -1,10 +1,10 @@
 import React from 'react';
-import Calendar from './Calendar';
+// import Calendar from './Calendar';
 
 const MyPage = () => {
     return (
         <div>
-            <Calendar />
+            {/* <Calendar /> */}
         </div>
     );
 };
