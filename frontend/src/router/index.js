@@ -17,6 +17,8 @@ import FindPwdPage from "../pages/FindPwdPage";
 import EnrollPage from "../pages/EnrollPage";
 import MeetingCard from "../components/Meeting/MeetingCard";
 import MeetingDetail from "../components/Meeting/MeetingDetail";
+import MeetingWrite from "../components/Meeting/MeetingWrite";
+import MeetingEdit from "../components/Meeting/MeetingEdit";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +33,8 @@ export const router = createBrowserRouter(
         <Route element={<Cart />} path="/app/cart" />
         <Route element={<MeetingCard />} path="/meet" />
         <Route element={<MeetingDetail />} path="/meet/:meetNo" />
+        <Route element={<MeetingWrite />} path="/meet/write" />
+        <Route element={<MeetingEdit />} path="/meet/:meetNo/edit" />
         <Route element={<Product />} path="/shop" />
       </Route>
 

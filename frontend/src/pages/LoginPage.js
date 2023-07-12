@@ -50,17 +50,17 @@ const LoginPage = () => {
       })
       .catch((error) => {
         console.log(error);
-        alert(error.msg);
+        alert("로그인에 실패 했습니다. ID와 PWD를 다시 한 번 확인해주세요.");
       });
   };
 
-  /**
-   * 1. fetch API
-   * 2. axios
-   * 3. Promise
-   * 4. async / await
-   * 5. cors
-   */
+  const KaKao = () => {
+    window.open("https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5f4936ea948f79e01ae85e35eff3a8e3&redirect_uri=http://localhost:8080/api/member/kakao");
+  };
+
+  const Naver = () => {
+    window.open("https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=JapyfHeRinhgQikh6zZV&state=qwer&redirect_uri=http://localhost:8080/api/member/naver");
+  };
 
   return (
     <div>
@@ -88,12 +88,13 @@ const LoginPage = () => {
             <strong> ㅣ </strong>
             <Link to="/member/find/id">아이디 찾기</Link>
             <strong> ㅣ </strong>
-            <Link to="/member/find/pwd">비밀번호 찾기</Link>
+            <Link to="/member/find/pwd">비밀번호 변경</Link>
           </div>
           <div className="img ml-6">
-            <Link to="/kakao">
-              <img src="/kakao.png" alt="카카오로그인" className="kakao-login ml-4" />
-            </Link>
+            <img src="/kakao.png" onClick={KaKao} alt="카카오로그인" className="kakao-login ml-4" />
+          </div>
+          <div className="img ml-6 mt-2 w-[300px] h-[30px]">
+            <img src="/naver.png" onClick={Naver} alt="네이버로그인" className="kakao-login ml-4" />
           </div>
         </form>
       </section>
