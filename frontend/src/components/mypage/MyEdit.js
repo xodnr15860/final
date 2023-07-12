@@ -13,7 +13,7 @@ const MyEdit = () => {
   const [phoneModalOpen, setPhoneModalOpen] = useState(false);
   const [currentPassword, setcurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  const [newPasswordComfirm, setNewPasswordComfirm] = useState('');
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
   const [newNickname, setNewNickname] = useState('');
   const [newPhone, setNewPhone] = useState('');
 
@@ -38,7 +38,7 @@ const MyEdit = () => {
     setPwModalOpen(false);
     setcurrentPassword('');
     setNewPassword('');
-    setNewPasswordComfirm('');
+    setNewPasswordConfirm('');
   };
   const nicknameOpenModal = () => {
     setNicknameModalOpen(true);
@@ -59,6 +59,11 @@ const MyEdit = () => {
   };
 
   const handleChangePassword = async () => {
+    if (newPassword !== newPasswordConfirm) {
+      alert("새 비밀번호와 확인 비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
     try {
       await axios.put(`http://localhost:8080/api/member/edit/${memberNo}/password` , {
         currentPwd: currentPassword,
@@ -67,7 +72,8 @@ const MyEdit = () => {
       pwCloseModal();
       setcurrentPassword('');
       setNewPassword('');
-      setNewPasswordComfirm('');
+      setNewPasswordConfirm('');
+      memberData(); // 회원 데이터 업데이트
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -80,6 +86,7 @@ const MyEdit = () => {
       })
       nicknameCloseModal();
       setNewNickname('');
+      memberData(); // 회원 데이터 업데이트
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -92,6 +99,7 @@ const MyEdit = () => {
       })
       phoneCloseModal();
       setNewPhone('');
+      memberData(); // 회원 데이터 업데이트
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -130,7 +138,7 @@ const MyEdit = () => {
                               <h2 className='font-bold'>비밀번호 변경</h2>
                                 <input type="password" className='border border-gray-300 rounded-md h-14 w-[400px] mb-2' value={currentPassword} onChange={(e) => setcurrentPassword(e.target.value)} /> <br/>
                                 <input type="password" className='border border-gray-300 rounded-md h-14 w-[400px] mb-2' value={newPassword} onChange={(e) => setNewPassword(e.target.value)} /> <br/>
-                                <input type="password" className='border border-gray-300 rounded-md h-14 w-[400px] mb-2' value={newPasswordComfirm} onChange={(e) => setNewPasswordComfirm(e.target.value)} /> <br/>
+                                <input type="password" className='border border-gray-300 rounded-md h-14 w-[400px] mb-2' value={newPasswordConfirm} onChange={(e) => setNewPasswordConfirm(e.target.value)} /> <br/>
                                 <div className="flex justify-end">
                                   <button type="button" className="overlap-button h-8 w-10 rounded-lg bg-gradient-to-r text-white z-10" onClick={handleChangePassword}>
                                     변경
