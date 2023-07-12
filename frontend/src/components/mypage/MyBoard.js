@@ -58,6 +58,7 @@ const MyBoard = () => {
             <th className="px-2 py-2">작성일자</th>
           </tr>
         </thead>
+        {boardData.length > 0 ? (
         <tbody>
           {boardData.map((freeBoard) => (
             <tr key={freeBoard.freeNo}>
@@ -75,6 +76,13 @@ const MyBoard = () => {
             </tr>
           ))}
         </tbody>
+        ) : (
+            <tbody>
+                <tr>
+                    <td className="border-y px-4 py-2 text-center" colSpan="4">게시물이 없습니다.</td>
+                </tr>
+                </tbody>
+            )}
       </table>
 
       <nav aria-label="Page navigation">

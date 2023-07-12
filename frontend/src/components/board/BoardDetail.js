@@ -289,12 +289,12 @@ const BoardDetail = () => {
             }}>
               <div className='flex'> 
                 <button type="submit" className='focus:outline-none text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-3 mr-2 mb-8 mt-8 dark:bg-green-600 dark:hover:bg-green-700'>글 삭제</button>
-                <button
+                {/* <button
                 onClick={onClickEditBoardBtn}
                 className='focus:outline-none text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-3 mr-2 mb-8 mt-8 dark:bg-green-600 dark:hover:bg-green-700'
                 >
                 글 수정
-                </button>
+                </button> */}
               </div>
             </form>
         

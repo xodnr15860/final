@@ -74,7 +74,7 @@ const Admin = () => {
 
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-white dark:text-white">
-                    <thead className="text-xs text-white uppercase bg-green-400 dark:bg-green-400 dark:text-white">
+                    <thead className="text-xs text-white uppercase bg-green-400 dark:bg-green-400 dark:text-black">
                         <tr>
                             <th scope="col" className="px-2 py-3 text-center">회원번호</th>
                             <th scope="col" className="px-5 py-3 text-center">회원아이디</th>
